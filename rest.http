@@ -1,0 +1,24 @@
+GET http://localhost:8000/
+
+
+##create new user
+
+POST  http://localhost:8000/api/v1/user/
+Content-Type: application/json
+
+
+{
+    "fname": "Divyesh",
+    "lname": "Shrestha",
+    "email": "111@gmail.com",
+    "dob": "1995/2/10",
+    "password": "123456",
+    "phone": "123456",
+    "address": "Sydney, NSW",
+    "gender": "male"
+    "hacking": "<XX>",
+}
+
+//serverside validation.
+//send email confirmation and validate email
+//account has been activated
