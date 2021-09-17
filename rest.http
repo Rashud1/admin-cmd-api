@@ -1,11 +1,10 @@
 GET http://localhost:8000/
 
 
-##create new user
+###create new user
 
 POST  http://localhost:8000/api/v1/user/
 Content-Type: application/json
-
 
 {
     "fname": "Divyesh",
@@ -16,9 +15,20 @@ Content-Type: application/json
     "phone": "123456",
     "address": "Sydney, NSW",
     "gender": "male"
-    "hacking": "<XX>",
+   
 }
 
-//serverside validation.
+##### Email APIs
+
+### verify admin email
+
+PATCH  http://localhost:3000/email-verification
+Content-Type: application/ application/json
+
+{
+    "pin": "517796",
+    "email": "bssss@gmail.com"
+}
+
 //send email confirmation and validate email
 //account has been activated
