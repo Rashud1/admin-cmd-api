@@ -32,3 +32,38 @@ Content-Type: application/ application/json
 
 //send email confirmation and validate email
 //account has been activated
+
+
+#catalog router
+
+### get all or single categories
+GET  http://localhost:8000/api/v1/catalog
+
+### get single category
+GET  http://localhost:8000/api/v1/catalog/61451ac546a24caca0ca8853
+
+
+###Post new category
+
+POST http://localhost:8000/api/v1/catalog
+Content-Type:  application/json
+
+{
+    "name": "Home and garden",
+    "parentCat": null
+}
+
+### update category
+
+PATCH http://localhost:8000/api/v1/catalog
+Content-Type:  application/json
+{
+    "_id": "furniture",
+    "name": ,
+    "parenCat": null
+}
+
+
+### Delete categories
+
+DELETE   http://localhost:8000/api/v1/catalog/61451ac546a24caca0ca8853

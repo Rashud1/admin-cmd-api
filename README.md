@@ -29,3 +29,14 @@ Alluser api endpoint will be followed by `${rootUrl}/api/v1/user`
 | --- | --- | ------ | --------------------------- |
 | 1.  | `/` | GET    | Get all users               |
 | 2.  | `/` | POST   | Create new user in database |
+
+### Catalog API endpoints
+
+All catalog api endpoint will be followed by `${rootUrl}/api/v1/catalog`
+
+| #   | API      | Method | DESCRIPTION                                                                  |
+| --- | -------- | ------ | ---------------------------------------------------------------------------- |
+| 1.  | `/:_id?` | GET    | Get all Category if `_id`id is provided, otherwise return all the categories |
+| 2.  | `/`      | POST   | Create new catalog in database                                               |
+| 2.  | `/`      | PATCH  | Update catalog in database                                                   |
+| 2.  | `/:_id`  | DELETE | Delete catalog in database                                                   |

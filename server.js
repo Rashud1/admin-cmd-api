@@ -20,9 +20,11 @@ app.use(express.urlencoded());
 app.use(express.json());
 // load routers
 import userRouter from './routers/userRouter.js';
+import categoryRouter from "./routers/categoryRouter.js";
 
 // use routers
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/catalog", categoryRouter);
 
 
 app.use("/", (req, res) => {
