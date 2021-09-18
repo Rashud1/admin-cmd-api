@@ -62,7 +62,7 @@ import nodemailer from 'nodemailer';
         <br/>
         
         Please follow the link below to confirm your email. <br/><br/>
-        <a href="${link}> ${link} </a>
+        <a href="${link}" target="_blank"> ${link} </a>
 
         
         <br/><br/>
