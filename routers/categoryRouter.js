@@ -2,7 +2,7 @@ import express from 'express'
 const Router = express.Router();
 import slugify from "slugify";
 
-import { addCategory, getAllCats, getACat, deleteCat, updateCat } from "../models/user-model/category/Category.model.js";
+import { addCategory, getAllCats, getACat, deleteCat, updateCat } from "../models/category/Category.model.js";
 import { newCategoryValidation, updateCategoryValidation } from "../middlewares/formValidation.middleware.js";
 
 Router.all("/", (req,res,next)=> {
@@ -57,7 +57,9 @@ Router.post("/", newCategoryValidation, async (req, res)=>{
     try {
         
         const slug = slugify(req.body.name, { lower: true});
-        console.log(slug);
+
+        req.body.parentCat= req.body.parentCat ? req.body.parentCat : null;
+        console.log(req.body);
 
         const result = await addctaegory({...req.body, slug});
 

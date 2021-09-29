@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 
 
 
-const SessionSchema = mongoose.Schema({
+const PinSchema = mongoose.Schema({
 
     pin: {
         type:String,
@@ -30,6 +30,6 @@ timestamp: true,
 
 }
 );
-const session = mongoose.model("Session", SessionSchema); 
+const Pin = mongoose.model("Pin", PinSchema); 
 
-export default session;
+export default Pin;

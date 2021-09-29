@@ -33,19 +33,36 @@ Content-Type: application/ application/json
 //send email confirmation and validate email
 //account has been activated
 
+### Login user
+POST  http://localhost:8000/api/v1/user/login
+Content-Type: application/ application/json
 
-#catalog router
+{
+    "email": "bssss@gmail.com",
+    "password": "123456gdg"
+}
+## Logout user
+POST  http://localhost:8000/api/v1/user/logout
+Content-Type: application/ application/json
+
+{
+    "accessJWT": "",
+    "resfreshJWT': "",
+}
+
+
+##################category router
 
 ### get all or single categories
-GET  http://localhost:8000/api/v1/catalog
+GET  http://localhost:8000/api/v1/category/
 
 ### get single category
-GET  http://localhost:8000/api/v1/catalog/61451ac546a24caca0ca8853
+GET  http://localhost:8000/api/v1/category/61451ac546a24caca0ca8853
 
 
 ###Post new category
 
-POST http://localhost:8000/api/v1/catalog
+POST http://localhost:8000/api/v1/category/
 Content-Type:  application/json
 
 {
@@ -55,7 +72,7 @@ Content-Type:  application/json
 
 ### update category
 
-PATCH http://localhost:8000/api/v1/catalog
+PATCH http://localhost:8000/api/v1/category/
 Content-Type:  application/json
 {
     "_id": "furniture",
@@ -66,4 +83,23 @@ Content-Type:  application/json
 
 ### Delete categories
 
-DELETE   http://localhost:8000/api/v1/catalog/61451ac546a24caca0ca8853
+DELETE   http://localhost:8000/api/v1/category/61451ac546a24caca0ca8853
+
+
+####Token routes
+
+### get new accessrefresh token
+GET http://localhost:8000/api/v1/token
+
+Authorization: 
+
+
+
+###############token routers
+
+###get new accessrefresh token
+GET http://localhost:8000/api/v1/token
+Authorization:
+
+
+

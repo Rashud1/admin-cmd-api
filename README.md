@@ -32,7 +32,7 @@ Alluser api endpoint will be followed by `${rootUrl}/api/v1/user`
 
 ### Catalog API endpoints
 
-All catalog api endpoint will be followed by `${rootUrl}/api/v1/catalog`
+All catalog api endpoint will be followed by `${rootUrl}/api/v1/category`
 
 | #   | API      | Method | DESCRIPTION                                                                  |
 | --- | -------- | ------ | ---------------------------------------------------------------------------- |

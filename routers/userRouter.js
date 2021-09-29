@@ -1,11 +1,16 @@
 import express from 'express'
 const Router = express.Router();
-import {createUser, verifyEmail} from '../models/user-model/User.model.js';
-import {createAdminUserValidation, adminEmailVerificationValidation} from '../middlewares/formValidation.middleware.js';
-import {hashPassword} from '../helpers/bcrypt.helper.js';
+import {createUser, verifyEmail, getUserByEmail, updateUserProfile, removeRefreshJWT} from '../models/user-model/User.model.js';
+import {createAdminUserValidation, adminEmailVerificationValidation, loginUserFormValidation} from '../middlewares/formValidation.middleware.js';
+import {comparePassword, hashPassword} from '../helpers/bcrypt.helper.js';
 import  {sendEmailVerificationConfirmation, sendEmailVerificationLink} from '../helpers/email.helper.js';
-import { createUniqueEmailConfirmation, findAdminEmailVerification, deleteInfo } from '../models/user-model/session/Session.model.js';
- 
+import { createUniqueEmailConfirmation, findAdminEmailVerification, deleteInfo } from '../models/rest-pin/Pin.model.js';
+import { removeSession } from "../models/session/Session.model.js";
+
+ import {getJWTs} from '../helpers/jwt.helper.js';
+import { isAdminUser } from '../middlewares/auth.middleware.js';
+
+
  
 
 
@@ -13,7 +18,21 @@ Router.all("/", (req,res,next)=> {
  next();
 });
 
-Router.post("/", createAdminUserValidation, async (req, res)=> {
+
+
+Router.get("/", isAdminUser, (req, res)=>{
+res.json({
+    status:"success",
+    message:"User profile",
+    user: req.user,
+
+   
+});
+})
+
+
+// Create user//
+Router.post("/", isAdminUser, createAdminUserValidation, async (req, res)=> {
     
     try {
          //server side validation
@@ -73,6 +92,35 @@ Router.post("/", createAdminUserValidation, async (req, res)=> {
     }
 });
 
+//update user
+Router.patch("/",  isAdminUser, async (req, res)=>{
+    try {
+        const {_id} = req.user
+        console.log(_id, req.body)
+         if(_id){
+             const result = await updateUserProfile(_id, req.body)
+
+             if(result?.id){
+               return   res.json({
+                status: "success",
+                message: "User profile has been updated successfully",
+            })
+             }
+         }
+          return res.json({
+            status: "error",
+            message: "Unable to update the user, please try again later",
+        });
+        
+        
+    } catch (error) {
+        console.log(error)
+        
+    }
+})
+
+
+
 
 ////email verification
 Router.patch("/email-verfication", adminEmailVerificationValidation, async (req, res) => {
@@ -116,4 +164,78 @@ Router.patch("/email-verfication", adminEmailVerificationValidation, async (req,
         
     }
 });
+
+//user login
+Router.post("/login", loginUserFormValidation, async (req, res)=>{
+    try {
+        const {email, password} = req.body
+        const user = await getUserByEmail(email);
+
+        console.log(user);
+        if (user?._id && user?.role === 'admin'){
+
+            ///check if password valid or not
+
+            const isPassMatch = comparePassword(password, user.password);
+            if(isPassMatch){
+              //get jwts then send to the client
+
+                const jwts = getJWTs({_id:user._id, email:user.email});
+                // user.password = undefined;//
+
+                return res.status(401).json({
+                    status: "success",
+                    message: "login success",
+                    jwts,
+                    user,
+                });
+
+            }
+        }
+
+        res.status(401).json({
+            status: "error",
+            message: "login unsuccessful",
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            status: "error",
+            message: "Error, please try again later"
+        });
+    };
+});
+//userlog out
+Router.post("/logout", async (req, res)=>{
+
+    try {
+        const {accessJWT, refreshJWT} = req.body;
+        
+     
+          accessJWT && (await removeSession(accessJWT));
+         refreshJWT && (await removeRefreshJWT(refreshJWT));
+        
+         console.log(a, b);
+      
+              res.json({
+                    status: "success",
+                    message: "login out",
+                    
+                });
+
+     } catch (error){
+         console.log(error);
+         res.status(500).json({
+            status: "error",
+            message: "login unsuccessful",
+        });
+    
+        
+     };
+   });
+
+        
+    
+
 export default Router;

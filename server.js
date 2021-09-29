@@ -18,13 +18,18 @@ app.use(cors());
 app.use(morgan("tiny"));
 app.use(express.urlencoded());
 app.use(express.json());
+
+import { isAdminUser} from './middlewares/auth.middleware.js'
 // load routers
 import userRouter from './routers/userRouter.js';
 import categoryRouter from "./routers/categoryRouter.js";
+import  tokenRouter from "./routers/tokenRouter.js";
+
 
 // use routers
 app.use("/api/v1/user", userRouter);
-app.use("/api/v1/catalog", categoryRouter);
+app.use("/api/v1/category",isAdminUser, categoryRouter);
+app.use("/api/v1/token", tokenRouter);
 
 
 app.use("/", (req, res) => {

@@ -1,13 +1,11 @@
-import SessionSchema from './Session.schema.js';
-import { randomNumberGenerator } from '../../../utils/randomGenerator.js'
-
-
+import PinSchema from './Pin.schema.js';
+import { randomNumberGenerator } from '../../utils/randomGenerator.js'
 
 const pinLength = 6
 export const createUniqueEmailConfirmation = async email => {
     
     try {
-        const pin = randomNumberGenerato(pinLength);
+        const pin = randomNumberGenerator(pinLength);
         if(!pin || !email) {
             return false
         }
@@ -17,13 +15,10 @@ export const createUniqueEmailConfirmation = async email => {
             email
         };
 
-        const result = await SessionSchema(newEmailValidation).save();
+        const result = await PinSchema(newEmailValidation).save();
        
         return result;
-        SessionSchema()
-
-        
-    } catch (error) {
+       } catch (error) {
         throw new Error(error)
         
     }
