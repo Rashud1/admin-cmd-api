@@ -44,7 +44,69 @@ import nodemailer from 'nodemailer';
         send(info);
     };
 
+//send email notification for password update
+export const sendPasswordResetOTP= emailObj =>{
+    const {fname, otp} = emailObj;
+    
+    
+    const obj = {
+        ...emailObj,
 
+    subject: "Reset password OTP",
+    text: `Hi ${fname}, You have the following otp to reset your password. ${otp}. The otp will expire in 15 min`,
+   html: ` 
+    Hello ${fname},
+    <br/>
+    
+    You have the following otp to reset your password.
+     ${otp}
+     <br/><br/>
+      The otp will expire in 15 min
+     <br/><br/>
+    Thank you <br/><br/>
+
+    Kind regards, <br/>
+
+    ---some company information----
+    
+    `,
+    // html body 
+};
+
+    emailProcessor(obj);
+}
+export const sendPasswordUpdateNotification= emailObj =>{
+    const {fname} =emailObj;
+    
+    
+    const obj = {
+        ...emailObj,
+
+    subject: "Your password has been updated",
+    text: `Hi ${fname}, Your password has just been updated, 
+    if you did not make this change, please conatct us immediately., ${link}`,
+    html: ` 
+    Hello there,
+    <br/>
+    
+    Your password has just been updated, 
+    if you did not make this change, please conatct us immediately.. <br/><br/>
+    <a href="${link}" target="_blank"> ${link} </a>
+
+    
+    <br/><br/>
+    Thank you <br/><br/><br/>
+
+    Kind regards, 
+
+    ---some company information----
+    
+    `,
+    // html body 
+};
+
+    emailProcessor(obj);
+}
 
       
 

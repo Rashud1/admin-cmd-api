@@ -33,8 +33,7 @@ export const isAdminUser = async (req, res, next) => {
                if(user?.role === "admin"){
                 
                 req.user = user;
-                req.user.password = undefined;
-                req.user.refershJWT = undefined;
+            
 
                 next();
                 return;

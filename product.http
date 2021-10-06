@@ -1,0 +1,22 @@
+#Product api list
+
+
+### fettch single or all products
+GET http://localhost:8000/api/v1/product
+
+### add new product 
+POST http://localhost:8000/api/v1/product
+Content-Type: application/json
+
+{
+    "title": "Samsung Mobile",
+    "price": 2000,
+   " salePrice":1100,
+    "saleStartDate": null,
+    "saleEndDate":null,
+    "brand":"Samsung",
+    "qty" : 50,
+    "description":"hi this is samsung",
+}
+
+

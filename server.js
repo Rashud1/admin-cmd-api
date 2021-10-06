@@ -24,12 +24,13 @@ import { isAdminUser} from './middlewares/auth.middleware.js'
 import userRouter from './routers/userRouter.js';
 import categoryRouter from "./routers/categoryRouter.js";
 import  tokenRouter from "./routers/tokenRouter.js";
-
+import  productRouter  from "./routers/productRouter.js";
 
 // use routers
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/category",isAdminUser, categoryRouter);
 app.use("/api/v1/token", tokenRouter);
+app.use("/api/v1/product", productRouter);
 
 
 app.use("/", (req, res) => {

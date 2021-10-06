@@ -12,7 +12,7 @@ export const createUniqueEmailConfirmation = async email => {
 
         const newEmailValidation = {
             pin,
-            email
+            email,
         };
 
         const result = await PinSchema(newEmailValidation).save();
@@ -26,7 +26,10 @@ export const createUniqueEmailConfirmation = async email => {
 
 export const findAdminEmailVerification = async (filterObj) =>{
     try {
-        const result = await SessionSchema.findOne(filterObj); /// this filter obj will have pin and email
+        const result = await SessionSchema.findOne({
+            otp:"123456",
+            email: "asa@gmail.com"
+        }); /// this filter obj will have pin and email
        
         return result;
         
@@ -43,6 +46,29 @@ export const deleteInfo = async filterObj =>{
    
     } catch (error) {
         throw new Error(error);
+        
+    }
+};
+
+export const createUniqueOtp = async ({email, type}) => {
+    
+    try {
+        const pin = randomNumberGenerator(pinLength);
+        if(!pin || !email) {
+            return false
+        }
+
+        const newOtp = {
+            pin,
+            email,
+            type,
+        };
+
+        const result = await PinSchema(newOtp).save();
+       
+        return result;
+       } catch (error) {
+        throw new Error(error)
         
     }
 };

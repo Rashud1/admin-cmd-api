@@ -33,21 +33,42 @@ Content-Type: application/ application/json
 //send email confirmation and validate email
 //account has been activated
 
-### Login user
-POST  http://localhost:8000/api/v1/user/login
-Content-Type: application/ application/json
+
+###  user forget password otp request
+POST  http://localhost:8000/api/v1/user/request-otp
+Content-Type: application/json
 
 {
     "email": "bssss@gmail.com",
     "password": "123456gdg"
 }
-## Logout user
+### Logout user
 POST  http://localhost:8000/api/v1/user/logout
-Content-Type: application/ application/json
+Content-Type:  application/json
 
 {
     "accessJWT": "",
     "resfreshJWT': "",
+}
+
+### admin update password
+POST  http://localhost:8000/api/v1/user/password-update
+Content-Type: application/json
+Authorization:
+
+{
+    "currentPassword": "",
+    "confirmPassword": ""
+}
+### reset new password
+POST  http://localhost:8000/api/v1/user/reset-password
+Content-Type: application/json
+Authorization:
+
+{
+     "otp": 25545, 
+    "newPassword": "123456",
+ 
 }
 
 
@@ -100,6 +121,17 @@ Authorization:
 ###get new accessrefresh token
 GET http://localhost:8000/api/v1/token
 Authorization:
+
+### Login user
+POST  http://localhost:8000/api/v1/token/login
+Content-Type: application/json
+
+{
+    "email": "bssss@gmail.com",
+    
+}
+
+
 
 
 
